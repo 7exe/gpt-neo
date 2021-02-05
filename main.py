@@ -255,7 +255,7 @@ def main(args):
             # Else, don't stop and restart
             estimator.train(input_fn=partial(input_fn, global_step=current_step, eval=False), max_steps=params["train_steps"])
 start_args = None
-def start(tpu="",
+def config(tpu="",
           gpu_ids=["device:GPU:0"],
           model=None,
           steps_per_checkpoint=5000,
@@ -270,11 +270,15 @@ def start(tpu="",
           entmax_sampling=False,
           export=False):
                      
-          global start_Args
-          start_Args = args_template_generate(tpu=tpu, gpu_ids=gpu_ids, model=model, steps_per_checkpoint=steps_per_checkpoint, auto_layout=auto_layout, auto_layout_and_mesh_shape=auto_layout_and_mesh_shape,new=new, predict=predict, eval=eval, prompt=prompt, check_dataset=check_dataset,sacred_id=sacred_id,entmax_sampling=entmax_sampling, export=export)
+          
+          return start_Args = args_template_generate(tpu=tpu, gpu_ids=gpu_ids, model=model, steps_per_checkpoint=steps_per_checkpoint, auto_layout=auto_layout, auto_layout_and_mesh_shape=auto_layout_and_mesh_shape,new=new, predict=predict, eval=eval, prompt=prompt, check_dataset=check_dataset,sacred_id=sacred_id,entmax_sampling=entmax_sampling, export=export)
                      
-if __name__ == "__main__":
+                     
+def start(config):
     tf.disable_v2_behavior()
-    args = start_Args
-    assert args is not None, "Invalid parameters"
-    main(args)
+    main(config)
+#if __name__ == "__main__":
+#    tf.disable_v2_behavior()
+#    args = start_Args
+#    assert args is not None, "Invalid parameters"
+#    main(args)
