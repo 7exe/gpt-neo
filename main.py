@@ -20,7 +20,7 @@ class arguments():
     pass
 
 def args_template_generate(
-                           tpu="",
+                           tpu=None,
                            gpu_ids=["device:GPU:0"],
                            model=None,
                            steps_per_checkpoint=5000,
@@ -255,7 +255,8 @@ def main(args):
             # Else, don't stop and restart
             estimator.train(input_fn=partial(input_fn, global_step=current_step, eval=False), max_steps=params["train_steps"])
 start_args = None
-def config(tpu="",
+                     
+def config(tpu=None,
           gpu_ids=["device:GPU:0"],
           model=None,
           steps_per_checkpoint=5000,
